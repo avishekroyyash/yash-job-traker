@@ -30,15 +30,15 @@
             <div class="grid grid-cols-3 gap-4">
                 <div class="bg-[#FFFFFF] border-1 border-gray-200 p-4 rounded-xl">
                     <p class="text-[#323B49]">Total</p>
-                    <p class="text-[24px] font-bold">0</p>
+                    <p id="total-count" class="text-[24px] font-bold">0</p>
                 </div>
                 <div class="bg-[#FFFFFF] border-1 border-gray-200  p-4 rounded-xl">
                     <p class="text-[#323B49]">Interview</p>
-                    <p class="text-[24px] font-bold text-[#10B981]">0</p>
+                    <p id="interview-count" class="text-[24px] font-bold text-[#10B981]">0</p>
                 </div>
                 <div class="bg-[#FFFFFF] border-1 border-gray-200  p-4 rounded-xl">
                     <p class="text-[#323B49]">Rejected</p>
-                    <p class="text-[24px] font-bold text-[#EF4444]">0</p>
+                    <p id="rejected-count"  class="text-[24px] font-bold text-[#EF4444]">0</p>
                 </div>
             </div>
         </header>
@@ -55,16 +55,17 @@
          </div>
          
          <!-- button section -->
+          <section>
           <div class=" w-[1110px] flex gap-4 justify-start items-center m-auto ">
-          <button  class="text-white bg-blue-500 px-10 py-4 rounded-xl btn" >All</button>
-          <button class="text-[#64748B]  bg-white p-4 rounded-xl btn">Interview</button>
-          <button class="text-[#64748B] bg-white p-4 rounded-xl btn">Rejected</button>
+          <button id="all-btn" onclick="toggle('all-btn')" class="text-white bg-blue-500 px-10 py-4 rounded-xl btn" >All</button>
+          <button id="interview-btn" onclick="toggle('interview-btn')" class="text-[#64748B]  bg-white p-4 rounded-xl btn">Interview</button>
+          <button id="rejected-btn" onclick="toggle('rejected-btn')" class="text-[#64748B] bg-white p-4 rounded-xl btn">Rejected</button>
           </div>
-           
+         </section>
           <!-- card section -->
-           <section class="w-[1110px]  m-auto  mt-6 space-y-5">
+           <section id="all-card-section" class="w-[1110px]  m-auto  mt-6 space-y-5">
             <!-- card-1 -->
-            <div class="bg-white rounded-xl p-6 border-1 border-gray-200">
+             <div class="bg-white rounded-xl p-6 border-1 border-gray-200">
                 <h1 class="text-[#002C5C] text-[18px] font-semibold">Mobile First Corp </h1>
                 <p class="text-[#64748B] mb-5">React Native Developer</p>
                 <p class="text-[#64748B] mb-5">Remote • Full-time • $130,000 - $175,000</p>
