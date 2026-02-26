@@ -44,9 +44,8 @@ function toggle(id){
     select.classList.add('text-white','bg-blue-500')
      select.classList.remove('text-[#64748B]','bg-white')
     // select.classList.remove('hidden')
-  console.log(id)
+
      if(id == 'interview-nav-btn'){
-        console.log('1')
         filterSection.classList.remove('hidden')
         allCardHeader.classList.add('hidden')
         addInterviewCard()   
@@ -65,18 +64,19 @@ function toggle(id){
 
 mainContainer.addEventListener('click',function(event){
     //console.log( event.target.classList.contains('interview-btn'))
-
-   
+    //console.log( event.target.classList.contains('rejected-btn'))
+    //delet-btn
+   // console.log( event.target.classList.contains('delet-btn'))
    if(event.target.classList.contains('interview-btn')){
-    const parent = event.target.parentNode.parentNode;
+     const parent = event.target.closest('.card');
     const jobTitle = parent.querySelector('.job-title').innerText
      const work = parent.querySelector('.work').innerText 
      const salary = parent.querySelector('.salary').innerText
      const showStatus = parent.querySelector('.show').innerText = 'INTERVIEW'
      const jobDescription = parent.querySelector('.jobdescription').innerText
-    //  console.log(showStatus)
-    //    showStatus.className = 'btn text-[#10B981] border-[#10B981]'
-    
+   
+    parent.querySelector('.show').classList.remove('border','border-red-500','bg-red-500')
+    parent.querySelector('.show').classList.add('border', 'border-green-500','bg-green-500')
      const trakingData = {
         jobTitle,
         work,
@@ -89,36 +89,24 @@ mainContainer.addEventListener('click',function(event){
      if(!cheackJob){
         interviewList.push(trakingData);
      }
-     //console.log(interviewList)
+    
      rejectedList = rejectedList.filter(item => item.jobTitle != trakingData.jobTitle)
-     // console.log(rejectedList)
        interviewCount.innerText= interviewList.length
-    //   console.log(currentStatus)
      if(currentStatus=="rejected-nav-btn"){
        addRejectedCard()
      }
-    //    interviewCount.innerText = interviewList.length;
-     //rejectedCount.innerText = rejectedList.length;
-
-    // /
-    // if(currentStatus === 'interview-nav-btn'){
-    //     addInterviewCard();
-    // }
-    // else if(currentStatus === 'rejected-nav-btn'){
-    //     addRejectedCard();
-    // }
-    //addInterviewCard()
+    
     }
  else if(event.target.classList.contains('rejected-btn')){
-    const parent = event.target.parentNode.parentNode;
+    const parent = event.target.closest('.card');
     const jobTitle = parent.querySelector('.job-title').innerText
      const work = parent.querySelector('.work').innerText 
      const salary = parent.querySelector('.salary').innerText
      const showStatus = parent.querySelector('.show').innerText = 'REJECTED'
      const jobDescription = parent.querySelector('.jobdescription').innerText
-    //  console.log(showStatus)
-    //    showStatus.className = 'btn text-[#10B981] border-[#10B981]'
-    
+
+    parent.querySelector('.show').classList.remove('border','border-green-500','bg-green-500')
+     parent.querySelector('.show').classList.add('border','border-red-500','bg-red-500')
      const trakingData = {
         jobTitle,
         work,
@@ -139,18 +127,17 @@ mainContainer.addEventListener('click',function(event){
         addInterviewCard()
      }
      
+    }
+    else if(event.target.classList.contains('delet-btn')){
+        const parent = event.target.closest('.card');
+       // parent.removeChild(card)
+       //console.log(parent)
 
-    // interviewCount.innerText = interviewList.length;
-    // rejectedCount.innerText = rejectedList.length;
-
-    // // 🔥 ALWAYS refresh current tab
-    // if(currentStatus === 'interview-nav-btn'){
-    //     addInterviewCard();
-    // }
-    // else if(currentStatus === 'rejected-nav-btn'){
-    //     addRejectedCard();
-    // }
-      //addRejectedCard()
+       parent.remove()
+        totalCount.innerText = allCardHeader.children.length;
+    navJobCount.innerText = allCardHeader.children.length;
+    interviewCount.innerText = interviewList.length;
+    rejectedCount.innerText = rejectedList.length;
     }
 });
 
@@ -165,19 +152,24 @@ function addInterviewCard(){
     for(let job of interviewList ){
         console.log(job)
         let div = document.createElement('div');
-        div.className = 'bg-white rounded-xl p-6 border-1 border-gray-200 w-[1110px] m-auto mb-5'
+        div.className = 'card bg-white rounded-xl p-6 border-1 border-gray-200 w-[1110px] m-auto mb-5'
+         
         div.innerHTML = `
+         
          <h1 class=" job-title text-[#002C5C] text-[18px] font-semibold">${job.jobTitle}</h1>
                 <p class="work text-[#64748B] mb-5">${job.work}</p>
                 <p class="salary text-[#64748B] mb-5">${job.salary}</p>
                 <div class=" w-[120px] mb-2">
-                    <p>${job.showStatus}</p>
+                    <p class='show'>${job.showStatus}</p>
                 </div>
                 <p class="jobdescription mb-5">${job.jobDescription}</p>
                 <div class="flex gap-3">
-                    <button class="btn text-[#10B981] border-[#10B981]">interview</button>
-                    <button class="btn text-[#EF4444] border-[#EF4444]">Rejected</button>
+                    <button class="interview-btn btn text-[#10B981] border-[#10B981] hover:bg-green-500 hover:text-white">interview</button>
+                    <button class="rejected-btn btn text-[#EF4444] border-[#EF4444]  hover:bg-red-500 hover:text-white">Rejected</button>
                 </div>
+                <div class="absolute top-4 right-5">
+                <button class="delet-btn btn btn-primary">delet</button>
+            </div>
         `
         filterSection.appendChild(div)
     }
@@ -193,19 +185,22 @@ function addRejectedCard(){
     for(let job of rejectedList ){
         console.log(job)
         let div = document.createElement('div');
-        div.className = 'bg-white rounded-xl p-6 border-1 border-gray-200 w-[1110px] m-auto mb-5'
+        div.className = 'card bg-white rounded-xl p-6 border-1 border-gray-200 w-[1110px] m-auto mb-5'
         div.innerHTML = `
          <h1 class=" job-title text-[#002C5C] text-[18px] font-semibold">${job.jobTitle}</h1>
                 <p class="work text-[#64748B] mb-5">${job.work}</p>
                 <p class="salary text-[#64748B] mb-5">${job.salary}</p>
-                <div class=" w-[120px] mb-2">
-                    <p>${job.showStatus}</p>
+                <div class=" w-[120px] mb-2 ">
+                    <p class='show '>${job.showStatus}</p>
                 </div>
                 <p class="jobdescription mb-5">${job.jobDescription}</p>
                 <div class="flex gap-3">
-                    <button class="btn text-[#10B981] border-[#10B981]">interview</button>
-                    <button class="btn text-[#EF4444] border-[#EF4444]">Rejected</button>
+                    <button class="interview-btn btn text-[#10B981] border-[#10B981]  hover:bg-green-500 hover:text-white">interview</button>
+                    <button class="rejected-btn btn text-[#EF4444] border-[#EF4444]  hover:bg-red-500 hover:text-white">Rejected</button>
                 </div>
+                <div class="absolute top-4 right-5">
+                <button class="delet-btn btn btn-primary">delet</button>
+            </div>
         `
         filterSection.appendChild(div)
     }
