@@ -40,21 +40,24 @@ function toggle(id){
         filterSection.classList.remove('hidden')
         allCardHeader.classList.add('hidden')
         addInterviewCard()
-
+        
         if(interviewList.length === 0){
             noJobContent.classList.remove('hidden')
         }else{
             noJobContent.classList.add('hidden')
         }
+        
     }
     else if(id == 'all-nav-btn'){
         filterSection.classList.add('hidden')
         allCardHeader.classList.remove('hidden')
         noJobContent.classList.add('hidden')
+        navJobCount.innerText=allCardHeader.children.length;
     }
     else if(id == 'rejected-nav-btn'){
         allCardHeader.classList.add('hidden')
         filterSection.classList.remove('hidden')
+         
         addRejectedCard()
 
         if(rejectedList.length === 0){
@@ -167,7 +170,8 @@ mainContainer.addEventListener('click',function(event){
 function addInterviewCard(){
     filterSection.innerHTML=""
     filterSection.appendChild(noJobContent);
-    navJobCount.innerHTML=` <p class="text-[#64748B] text-[16px]"> <span id="nav-job-count">${interviewList.length}</span> of 8</p>`
+    
+    navJobCount.innerHTML=` <p class="text-[#64748B] text-[16px]"> <span id=" "> ${interviewList.length} </span> of 8 </p>`
     for(let job of interviewList){
         let div = document.createElement('div');
         div.className = 'card bg-white rounded-xl p-6 border-1 border-gray-200 w-[1110px] m-auto mb-5'
@@ -194,7 +198,8 @@ function addInterviewCard(){
 function addRejectedCard(){
     filterSection.innerHTML=""
      filterSection.appendChild(noJobContent)
-     navJobCount.innerHTML=` <p class="text-[#64748B] text-[16px]"> <span id="nav-job-count">${rejectedList.length}</span> of 8</p>`
+ 
+     navJobCount.innerHTML=` <p id="nav-counter" class="text-[#64748B] text-[16px]"> <span id=" ">${rejectedList.length}</span> of 8 </p>` 
     for(let job of rejectedList){
         let div = document.createElement('div');
         div.className = 'card bg-white rounded-xl p-6 border-1 border-gray-200 w-[1110px] m-auto mb-5'
